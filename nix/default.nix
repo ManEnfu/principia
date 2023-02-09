@@ -40,7 +40,6 @@ stdenv.mkDerivation {
     automake
     autoconf
     pkg-config
-    # pkgconf
   ];
 
   buildInputs = [
@@ -69,6 +68,11 @@ stdenv.mkDerivation {
     xorg.libXScrnSaver
     xorg.libXxf86vm
     xorg.libXdmcp
+  ];
+
+  patches = [
+    ./fix-polygon.patch # Fix plastic polygon mesh issue
+    ./no-associative-math.patch # -fassociative-math optimization breaks pipeline and suction cups
   ];
 
   preConfigure = ''

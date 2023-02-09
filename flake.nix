@@ -17,10 +17,11 @@
     system = "x86_64-linux";
     pkgs = pkgsFor.${system};
 
+    version = "1.5.2-beta";
   in {
     # Overlays
     overlays.default = final: prev: {
-      principia = prev.callPackage ./nix/default.nix {};
+      principia = prev.callPackage ./nix/default.nix { inherit version; };
     };
 
     packages = genSystems (system:

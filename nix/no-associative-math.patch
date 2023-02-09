@@ -1,0 +1,20 @@
+diff --git a/build-linux/go b/build-linux/go
+index 61a39e1..37f7228 100755
+--- a/build-linux/go
++++ b/build-linux/go
+@@ -17,13 +17,13 @@ CONFIG_PATH=`pwd`/config.sh
+ 
+ [[ -f "$CONFIG_PATH" ]] && source "$CONFIG_PATH"
+ 
+-DEBUG_SHARED="-O0 -ggdb -ffast-math -Werror=return-type -DDEBUG=1 $EXTRA_DEBUGFLAGS_SHARED"
++DEBUG_SHARED="-O0 -ggdb -ffast-math -fno-associative-math -Werror=return-type -DDEBUG=1 $EXTRA_DEBUGFLAGS_SHARED"
+ 
+ DEBUGFLAGS_CC="$DEBUG_SHARED  $EXTRA_DEBUGFLAGS $EXTRA_DEBUGFLAGS_CC"
+ DEBUGFLAGS_CXX="$DEBUG_SHARED $EXTRA_DEBUGFLAGS $EXTRA_DEBUGFLAGS_CXX"
+ DEBUGFLAGS_LD="-rdynamic $EXTRA_DEBUGFLAGS_LD"
+ 
+-RELEASE_SHARED="-ffast-math -DNDEBUG=1 -s -fomit-frame-pointer -fvisibility=hidden -fdata-sections -ffunction-sections"
++RELEASE_SHARED="-ffast-math -fno-associative-math -DNDEBUG=1 -s -fomit-frame-pointer -fvisibility=hidden -fdata-sections -ffunction-sections"
+ 
+ RELEASEFLAGS_CC="$RELEASE_SHARED $EXTRA_RELEASEFLAGS_CC"
+ RELEASEFLAGS_CXX="$RELEASE_SHARED -O2 -fvisibility-inlines-hidden -fno-rtti $EXTRA_RELEASEFLAGS_CXX"

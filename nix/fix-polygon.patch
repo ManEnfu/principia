@@ -1,0 +1,13 @@
+diff --git a/src/src/polygon.cc b/src/src/polygon.cc
+index 292a292..c97f84f 100644
+--- a/src/src/polygon.cc
++++ b/src/src/polygon.cc
+@@ -369,7 +369,7 @@ polygon::update_mesh()
+         /* second point - first point, rotated 90 degrees clockwise */
+         n.x = (p[3 + ((x+1)%4)*5 + 1].v.f-p[3 + (x%4)*5 + 1].v.f);
+         n.y = -(p[3 + ((x+1)%4)*5 + 0].v.f-p[3 + (x%4)*5 + 0].v.f);
+-        tvec2_normalize((tvec2*)&n);
++        tvec3_normalize(&n);
+ 
+         v[x*4 + 0].pos = (tvec3){p[3 + (x%4)*5 + 0].v.f + n.x*b, p[3 + (x%4)*5 + 1].v.f+n.y*b, back_z};
+         v[x*4 + 0].nor = n;
