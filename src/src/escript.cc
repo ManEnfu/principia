@@ -1921,6 +1921,34 @@ extern "C" {
     }
 
     /** 
+     * Added in 1.5.2
+     * entity:apply_force(torque)
+     **/
+    static int l_entity_apply_force(lua_State *L)
+    {
+        if (W->level.version < LEVEL_VERSION_1_5_2) {
+            ESCRIPT_VERSION_ERROR(L, "entity:apply_force", "1.5.2");
+            return 0;
+        }
+
+        entity *e = *(static_cast<entity**>(luaL_checkudata(L, 1, "EntityMT")));
+        float fx = luaL_checknumber(L, 2);
+        float fy = luaL_checknumber(L, 3);
+        
+        b2Vec2 f(fx, fy);
+
+        for (uint32_t x = 0; x < e->get_num_bodies(); ++x) {
+            b2Body *b = e->get_body(x);
+
+            if (b) {
+                b->ApplyForceToCenter(f);
+            }
+        }
+
+        return 0;
+    }
+
+    /** 
      * Added in 1.5
      * entity:apply_torque(torque)
      **/
@@ -4247,6 +4275,7 @@ static const luaL_Reg entity_methods[] = {
     {"is_static",               l_entity_is_static},            // 1.5
     {"absorb",                  l_entity_absorb},               // 1.5
     {"apply_torque",            l_entity_apply_torque},         // 1.5
+    {"apply_force",             l_entity_apply_force},          // 1.5.2
     {"set_velocity",            l_entity_set_velocity},         // 1.5
     {"warp",                    l_entity_warp},                 // 1.5
     {"show",                    l_entity_show},                 // 1.5
